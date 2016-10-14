@@ -33,7 +33,7 @@ Route::group(array('prefix' => 'api'), function () {
         Route::get('user/{id}/worksheets', 'WorksheetController@userWorksheets');
         Route::post('worksheets', 'WorksheetController@storeWorksheet');
         Route::get('worksheets/{id}', 'WorksheetController@getWorksheet');
-        Route::put('worksheets/{id}', 'WorksheetController@updateWorksheet');
+        Route::put('worksheets/{id}', 'WorksheetController@storeWorksheet');
         Route::delete('worksheets/{id}', 'WorksheetController@deleteWorksheet');
 
         // notes REST endpoints
