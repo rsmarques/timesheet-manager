@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Note;
 
-class NoteController extends Controller
+class NoteController extends ApiController
 {
 
     public function worksheetNotes($worksheetId)

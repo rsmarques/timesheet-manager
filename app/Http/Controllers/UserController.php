@@ -2,58 +2,77 @@
 
 namespace App\Http\Controllers;
 
-class UserController extends Controller
+// use League\Fractal\Resource\Collection;
+use User;
+
+use JWTAuth;
+use Response;
+
+use Log;
+use Validator;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
+
+class UserController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function findByUsername($username)
     {
+        $user   = User::findByUsername($username);
 
+        if (empty($user)) {
+            return $this->responseWithErrors("The requested user [$username] does not exist.", 404);
+        }
+
+        return $user;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
+    public function signUp(Request $request)
     {
+        $validator  = Validator::make($request->all(), [
+            'email'         => 'required|email|max:255|unique:users',
+            'password'      => 'required|min:6',
+            'username'      => 'unique:users',
+        ]);
 
+        if ($validator->fails()) {
+            return $this->responseWithErrors($validator->errors()->all(), 422);
+        }
+
+        $user               = new User;
+
+        $user->email        = $request->input('email');
+        $user->password     = $request->input('password');
+        $user->first_name   = $request->input('first_name');
+        $user->last_name    = $request->input('last_name', null);
+        $user->username     = $request->input('username', $user->calcUsername());
+
+        $user->save();
+
+        $token              = JWTAuth::fromUser($user);
+
+        return Response::json(compact('token'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function signIn(Request $request)
     {
+        $credentials    = $request->only('email', 'password');
 
+        if (!$token     = JWTAuth::attempt($credentials)) {
+            return Response::json(false, HttpResponse::HTTP_UNAUTHORIZED);
+        }
+
+        return Response::json(compact('token'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
+    public function me(Request $request)
     {
+        $user   = JWTAuth::parseToken()->toUser();
 
-    }
+        if (!$user) {
+            return $this->responseWithErrors("User not authenticated!");
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-
+        return $user;
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Worksheet;
 use Note;
 
-class WorksheetController extends Controller
+class WorksheetController extends ApiController
 {
     /**
     * Display a listing of the resource.
