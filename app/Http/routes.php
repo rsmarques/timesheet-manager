@@ -45,3 +45,6 @@ Route::group(array('prefix' => 'api'), function () {
 
     });
 });
+
+// Angular routes
+Route::any('{path?}', 'ViewController@home')->where("path", "^(?!api/).+");
