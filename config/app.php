@@ -209,10 +209,13 @@ return [
         'JWTAuth'                   => Tymon\JWTAuth\Facades\JWTAuth::class,
 
         // Model aliases
-        'User'                     => App\Models\User::class,
-        'Worksheet'                => App\Models\Worksheet::class,
-        'Note'                     => App\Models\Note::class,
+        'User'                      => App\Models\User::class,
+        'Worksheet'                 => App\Models\Worksheet::class,
+        'Note'                      => App\Models\Note::class,
 
+        // Transformer aliases
+        'UserTransformer'           => App\Transformers\UserTransformer::class,
+        'WorksheetTransformer'      => App\Transformers\WorksheetTransformer::class,
     ],
 
 ];

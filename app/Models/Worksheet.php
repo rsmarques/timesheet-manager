@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Worksheet extends Model
 {
-
     protected $table    = 'worksheets';
     public $timestamps  = true;
 
@@ -18,5 +17,10 @@ class Worksheet extends Model
     public function notes()
     {
         return $this->hasMany('Note');
+    }
+
+    public function getNotes()
+    {
+        return $this->notes()->lists('content')->all();
     }
 }

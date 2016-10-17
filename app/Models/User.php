@@ -37,6 +37,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('Worksheet');
     }
 
+    public function getWorksheetCount()
+    {
+        return $this->worksheets()->count();
+    }
+
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);

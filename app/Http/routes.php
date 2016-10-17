@@ -20,29 +20,25 @@ Route::group(array('prefix' => 'api'), function () {
     });
 
     // authentication endpoints
-    Route::post('/users/signin', array('uses' => 'UserController@signIn'));
-    Route::post('/users/signup', array('uses' => 'UserController@signUp'));
+    Route::post('/users/signin', 'UserController@signIn');
+    Route::post('/users/signup', 'UserController@signUp');
 
     // Private endpoints, require authentication
     Route::group(array('middleware' => ['jwt.auth']), function () {
 
-        // TODO User endpoints
+        // user REST endpoints
         Route::get('/me', 'UserController@me');
+        Route::post('users', 'UserController@createUser'); // create user
+        Route::get('users/{id}', 'UserController@getUser'); // get user
+        Route::put('users/{id}', 'UserController@updateUser'); // update user
+        Route::delete('users/{id}', 'UserController@deleteUser'); // delete user
 
         // worksheets REST endpoints
         Route::get('user/{id}/worksheets', 'WorksheetController@userWorksheets');
-        Route::post('worksheets', 'WorksheetController@storeWorksheet');
-        Route::get('worksheets/{id}', 'WorksheetController@getWorksheet');
-        Route::put('worksheets/{id}', 'WorksheetController@storeWorksheet');
-        Route::delete('worksheets/{id}', 'WorksheetController@deleteWorksheet');
-
-        // notes REST endpoints
-        Route::get('worksheets/{id}/notes', 'NoteController@worksheetNotes');
-        Route::post('notes', 'NoteController@storeNote');
-        Route::get('notes/{id}', 'NoteController@getNote');
-        Route::put('notes/{id}', 'NoteController@updateNote');
-        Route::delete('notes/{id}', 'NoteController@deleteNote');
-
+        Route::post('worksheets', 'WorksheetController@createWorksheet'); // create worksheet
+        Route::get('worksheets/{id}', 'WorksheetController@getWorksheet'); // get worksheet
+        Route::put('worksheets/{id}', 'WorksheetController@updateWorksheet'); // update worksheet
+        Route::delete('worksheets/{id}', 'WorksheetController@deleteWorksheet'); // delete worksheet
     });
 });
 

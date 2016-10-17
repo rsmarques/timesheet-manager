@@ -9,6 +9,7 @@ use Log;
 use User;
 use Worksheet;
 use Note;
+use WorksheetTransformer;
 
 class WorksheetController extends ApiController
 {
@@ -19,13 +20,29 @@ class WorksheetController extends ApiController
     */
     public function userWorksheets($userId)
     {
-        $worksheets = Worksheet::where('user_id', $userId)->get();
+        $worksheets = Worksheet::where('user_id', $userId)->orderBy('date', 'ASC')->get();
 
-        return $worksheets;
+        return $this->respondWithCollection($worksheets, new WorksheetTransformer);
+    }
+
+    public function createWorksheet()
+    {
+        return $this->storeWorksheet();
+    }
+
+    public function updateWorksheet($id)
+    {
+        $worksheet  = Worksheet::find($id);
+
+        if (!$worksheet) {
+            return $this->responseWithErrors("Worksheet [$worksheetId] not found!", 500);
+        }
+
+        return $this->storeWorksheet($id);
     }
 
     /**
-    * Store a newly created resource in storage.
+    * Stores/updates a newly created resource in storage.
     *
     * @return Response
     */
@@ -58,7 +75,6 @@ class WorksheetController extends ApiController
         $worksheet->hours   = Input::get('hours');
         $worksheet->save();
 
-
         // rewriting all notes
         Note::where('worksheet_id', $worksheet->id)->delete();
         $notes              = Input::get('notes', null);
@@ -73,7 +89,7 @@ class WorksheetController extends ApiController
             }
         }
 
-        return $worksheet;
+        return $this->respondWithItem($worksheet, new WorksheetTransformer);
     }
 
     /**
@@ -86,7 +102,11 @@ class WorksheetController extends ApiController
     {
         $worksheet  = Worksheet::find($worksheetId);
 
-        return $worksheet;
+        if (!$worksheet) {
+            return $this->responseWithErrors("Worksheet [$worksheetId] not found!", 500);
+        }
+
+        return $this->respondWithItem($worksheet, new WorksheetTransformer);
     }
 
     /**
