@@ -68,6 +68,13 @@ class UserController extends ApiController
         return Response::json(compact('token'));
     }
 
+    public function getAllUsers()
+    {
+        $users  = User::get();
+
+        return $this->respondWithCollection($users, new UserTransformer);
+    }
+
     public function createUser()
     {
         $validator  = $this->createUserValidator();

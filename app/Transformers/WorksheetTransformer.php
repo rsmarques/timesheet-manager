@@ -11,8 +11,6 @@ class WorksheetTransformer extends Fractal\TransformerAbstract
     {
         return [
             'id'            => $worksheet->id,
-            'created_at'    => $worksheet->created_at,
-            'updated_at'    => $worksheet->updated_at,
             'user_id'       => $worksheet->user_id,
             'date'          => $worksheet->date,
             'hours'         => $worksheet->hours,

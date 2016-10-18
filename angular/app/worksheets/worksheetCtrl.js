@@ -9,15 +9,42 @@
  */
 angular.module('app.controllers')
 
-    .controller('WorksheetCtrl', function ($scope, Worksheet) {
+    .controller('WorksheetCtrl', function ($scope, Worksheet, User) {
 
-        console.log('WorksheetCtrl');
-        Worksheet.userWorksheets({'userId' : 7}, function (result) {
-            console.log(result);
+        $scope.worksheetFilter = function ()
+        {
+            return function (worksheet) {
+                return (!$scope.filters.start_date || new Date(worksheet.date) >= $scope.filters.start_date) && (!$scope.filters.end_date || new Date(worksheet.date) <= $scope.filters.end_date);
+            };
+        };
+
+        $scope.selectUser   = function (user)
+        {
+            $scope.worksheets       = [];
+            $scope.currentUser      = user;
+
+            Worksheet.userWorksheets({'userId' : user.id}, function (result) {
+                $scope.worksheets   = result.data;
+
+            }, function (err) {
+                console.log('err');
+                console.log(err);
+            });
+        }
+
+        $scope.sortUsers    = function (sort, reverse)
+        {
+            $scope.userSort         = sort;
+            $scope.userSortReverse  = reverse;
+        }
+
+
+        User.getUsers({}, function (result) {
+            $scope.users    = result.data;
 
         }, function (err) {
-            console.log(err);
-            console.log('err');
+            // TODO error treatment
         });
 
+        $scope.filters  = {};
     });

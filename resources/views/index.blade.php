@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Weather App</title>
-        <meta name="description" content="Single page app that reads current location and displays local weather">
+        <title>Time Manager</title>
+        <meta name="description" content="Simple Time Management App">
         <meta charset="utf-8">
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1">

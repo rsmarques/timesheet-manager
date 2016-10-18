@@ -1,1 +1,142 @@
-<h1>Worksheet</h1>
+<div id="navbar">
+    <div ng-include="'./views/app/navbar/navbar.html'"></div>
+</div>
+
+<md-content>
+    <div layout="row" class="relative" layout-fill role="main">
+
+        <div flex="100" flex-gt-sm="25" ng-if="1" ng-cloak>
+
+            <div layout="row" layout-align="center center">
+                <md-input-container md-no-float class="md-block search-bar">
+                    <md-icon md-font-set="md">search</md-icon>
+                    <input ng-model="filterUser" type="text" placeholder="Search">
+                </md-input-container>
+
+                <md-menu>
+                    <md-button class="md-icon-button sort-users-button" aria-label="Sort" ng-click="openMenu($mdOpenMenu, $event)">
+                        <md-icon md-font-set="md">sort_by_alpha</md-icon>
+                        <md-tooltip hide-xs hide-sm md-direction="bottom">
+                            Sort
+                        </md-tooltip>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button ng-click="sortUsers('name' , 0)">
+                                <md-icon md-font-set="md">arrow_drop_up</md-icon>
+                                A-Z
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="sortUsers('name' , 1)">
+                                <md-icon md-font-set="md">arrow_drop_down</md-icon>
+                                Z-A
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="sortUsers('date' , 0)">
+                                <md-icon md-font-set="md">arrow_drop_up</md-icon>
+                                Hours
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="sortUsers('date' , 1)">
+                                <md-icon md-font-set="md">arrow_drop_down</md-icon>
+                                Hours
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider></md-menu-divider>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+            <div ng-repeat="user in users | filter : filterUser | orderBy : userSort : userSortReverse">
+                <md-list-item class="md-2-line repeated-item" ng-click="selectUser(user)">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{user.first_name}} {{user.last_name}}</h3>
+                        <p>{{user.worksheet_count}} Worksheets</p>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+        </div>
+        <md-divider></md-divider>
+
+        <div flex="100" flex-gt-sm="75" ng-if="1">
+
+            <div ng-if="currentUser.id">
+
+                <div layout="row" class="worksheet-header" layout-align="center center" flex>
+                    <div layout="column" flex="50">
+                        <div layout="row" class="edit-user-button">
+                            <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
+                            <md-button ng-if="1" class="md-icon-button" aria-label="Edit" ng-click="openUserDialog($event)">
+                                <md-icon md-font-set="md">mode_edit</md-icon>
+                                <md-tooltip hide-xs hide-sm md-direction="bottom">
+                                    Edit User
+                                </md-tooltip>
+                            </md-button>
+                        </div>
+                        <h4 hide-xs hide-sm>{{currentUser.email}}</h4>
+                        <p>{{currentUser.worksheet_count}} Worksheets</p>
+                    </div>
+                    <div layout="row" layout-align="end center" flex="50">
+
+                        <md-input-container class="date-filter">
+                            <label>Filter From</label>
+                            <md-datepicker ng-model="filters.start_date" md-open-on-focus></md-datepicker>
+                        </md-input-container>
+                        <md-input-container class="date-filter">
+                            <label>Filter To</label>
+                            <md-datepicker ng-model="filters.end_date" md-open-on-focus></md-datepicker>
+                        </md-input-container>
+
+                        <md-button class="md-icon-button" aria-label="Add" ng-click="openWorksheetDialog($event)">
+                            <md-icon md-font-set="md">add</md-icon>
+                            <md-tooltip hide-xs hide-sm md-direction="bottom">
+                                Add Worksheet
+                            </md-tooltip>
+                        </md-button>
+                    </div>
+                </div>
+                <md-divider></md-divider>
+
+                <div ng-repeat="worksheet in worksheets | filter : worksheetFilter()" ng-cloak>
+                    <div layout="row" class="worksheet-row md-2-line">
+
+                        <div layout="column" layout-align="center center">
+                            <h4>{{worksheet.date}}</h4>
+                            <h5><strong>{{worksheet.hours}} Hours</strong></h5>
+                        </div>
+                        <div layout="column" layout-align="center start">
+                            <div ng-repeat="note in worksheet.notes">
+                                <p hide-xs hide-sm><strong>{{ note }}</strong></p>
+                            </div>
+                        </div>
+                        <span flex></span>
+
+                        <div layout="row" layout-align="center center">
+                            <md-button class="md-icon-button" aria-label="Edit" ng-click="openWorksheetDialog($event)" layout="row">
+                                <md-icon md-font-set="md">mode_edit</md-icon>
+                                <md-tooltip hide-xs hide-sm md-direction="bottom">
+                                    Edit Worksheet
+                                </md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button" aria-label="Delete" ng-click="showDeleteWorksheetDialog()" layout="row">
+                                <md-icon md-font-set="md">remove_circle</md-icon>
+                                <md-tooltip hide-xs hide-sm md-direction="bottom">
+                                    Delete Worksheet
+                                </md-tooltip>
+                            </md-button>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                </div>
+
+                <div ng-if="!currentUser.id" layout="column" layout-align="center center" style="color: #888; padding-top: 50px">
+                    <h2>Please select an user,</h2>
+                    <h2>or create a new one <a href="" ng-click="openWorksheetDialog($event)">here</a></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-content>

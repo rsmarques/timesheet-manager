@@ -1,0 +1,111 @@
+/* Styling applied to all pages */
+
+.md-toolbar-tools {
+  background-color: #25B7D3;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.error {
+  color: #c60008;
+}
+
+.success {
+  color: #00c608;
+}
+.logo-image {
+  height: 70%;
+  padding-right: 20px;
+}
+.worksheet-header {
+  padding: 15px 0px 15px 20px;
+}
+
+.worksheet-header h1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000 !important;
+}
+
+.worksheet-header h1,
+p,
+h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #888;
+}
+
+.worksheet-row div {
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.worksheet-row h4,
+h5 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.worksheet-row h4 {
+  color: #111;
+}
+
+.worksheet-row h5 {
+  color: #888;
+}
+
+.worksheet-row p {
+  font-size: 13px;
+  margin: 0px;
+  text-align: justify;
+}
+
+.search-bar {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 2px;
+  background-color: #f3f3f3;
+  padding-right: 12px !important;
+  height: 40px;
+  width: 100%;
+}
+
+.sort-users-button {
+  margin-top: 18px !important;
+  right: 10px;
+}
+
+.date-filter {
+  margin-top: 25px;
+  margin-bottom: 0px;
+}
+
+.date-filter label {
+  font-size: 12px;
+}
+
+.edit-user-button > .md-button {
+  padding-top: 0px;
+  margin-left: 0px;
+  padding-bottom: 16px;
+}
+
+.loginForm {
+  width: 80%;
+}
+
+.loginButton {
+  margin: auto;
+  display: block;
+  background-color: #009FE3 !important;
+}
+
+.loginArea {
+  width: 400px;
+}
+
+.loginImage {
+  width: 100px;
+}

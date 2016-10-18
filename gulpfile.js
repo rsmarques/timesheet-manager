@@ -10,7 +10,7 @@ elixir(function(mix){
         .angular('./angular/')
         .styles('./angular/**/*.css', 'public/css')
         .copy('./angular/app/**/*.html', 'public/views/app/')
-        .copy('./angular/app/images/*', 'public/images/')
+        .copy('./angular/images/*', 'public/images/')
         .livereload([
             'public/js/vendor.js',
             'public/js/app.js',
