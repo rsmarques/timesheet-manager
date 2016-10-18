@@ -2,6 +2,14 @@
     padding: 15px 0px 15px 20px;
 }
 
+.worksheet-row-under {
+    color: #E02020;
+}
+
+.worksheet-row-over {
+    color: #009607;
+}
+
 .worksheet-header h1 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -31,7 +39,7 @@
 }
 
 .worksheet-row h5 {
-    color: #888;
+    font-size: 14px;
 }
 
 .worksheet-row p {

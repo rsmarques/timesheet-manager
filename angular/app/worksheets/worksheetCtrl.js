@@ -9,7 +9,11 @@
  */
 angular.module('app.controllers')
 
-    .controller('WorksheetCtrl', function ($scope, Worksheet, User) {
+    .controller('WorksheetCtrl', function ($scope, mdMenuService, Worksheet, User) {
+
+        $scope.openMenu = function ($mdOpenMenu, ev) {
+            mdMenuService.openMenu($mdOpenMenu, ev);
+        };
 
         $scope.worksheetFilter = function ()
         {
@@ -37,7 +41,6 @@ angular.module('app.controllers')
             $scope.userSort         = sort;
             $scope.userSortReverse  = reverse;
         }
-
 
         User.getUsers({}, function (result) {
             $scope.users    = result.data;

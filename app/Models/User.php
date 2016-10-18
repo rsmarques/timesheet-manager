@@ -37,6 +37,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('Worksheet');
     }
 
+    public function getFullName()
+    {
+        return !empty($this->last_name) ? ($this->first_name . ' ' . $this->last_name) : $this->first_name;
+    }
+
     public function getWorksheetCount()
     {
         return $this->worksheets()->count();
