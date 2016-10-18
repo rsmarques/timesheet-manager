@@ -9,7 +9,7 @@
  */
 angular.module('app.controllers')
 
-    .controller('AuthCtrl', function ($scope, Auth) {
+    .controller('AuthCtrl', function ($scope, AuthSrv) {
 
         console.log('AuthCtrl');
     });

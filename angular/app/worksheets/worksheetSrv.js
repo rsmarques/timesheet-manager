@@ -1,6 +1,6 @@
 angular.module('app.services')
 
-    .factory('Worksheet', function ($resource, API_URL) {
+    .factory('WorksheetSrv', function ($resource, API_URL) {
         return $resource(API_URL + 'worksheets/:id', {}, {
 
             userWorksheets: {
@@ -41,7 +41,7 @@ angular.module('app.services')
             },
 
             delete: {
-                method: 'GET',
+                method: 'DELETE',
                 params: {
                     id: '@id',
                 }

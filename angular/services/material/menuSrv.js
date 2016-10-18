@@ -1,6 +1,6 @@
 angular.module('app.services')
 
-    .service('mdMenuService', function () {
+    .service('mdMenuSrv', function () {
         return {
 
             openMenu : function ($mdOpenMenu, event) {
