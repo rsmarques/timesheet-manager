@@ -47,6 +47,17 @@
                                 <div ng-message="min max">This field must be between [0-24]</div>
                             </div>
                         </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Role</label>
+                            <md-select required name="role" ng-model="currentUser.role">
+                                <md-option ng-value ="role" ng-repeat="role in ['Regular', 'Manager', 'Admin']">
+                                    {{ role }}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="userForm.role.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
                     </div>
                 </div>
             </div>
