@@ -1,7 +1,7 @@
-<md-toolbar>
+<md-toolbar ng-controller="UserCtrl as ctrl">
     <div class="md-toolbar-tools">
         <img ng-src="images/logo/logo.svg" class="md-card-image logo-image">
-        <md-button class="md-icon-button" aria-label="Back" ng-if="showGuestListMobile()" ng-click="uncheckCurrentEvent()">
+        <md-button class="md-icon-button" aria-label="Back" ng-if="showBackMenuMobile()">
             <md-icon md-font-set="md">chevron_left</md-icon>
         </md-button>
         <h2>
@@ -11,11 +11,17 @@
         <!-- <md-button class="md-icon-button" aria-label="Home" href="#/">
             <md-icon md-font-set="md">home</md-icon>
         </md-button> -->
-        <md-button class="md-icon-button" aria-label="Users" href="#/guests">
-            <md-icon md-font-set="md">group</md-icon>
+        <md-button class="md-icon-button" aria-label="Profile" ng-click="openEditProfileDialog($event)">
+            <md-icon md-font-set="md">account_circle</md-icon>
+            <md-tooltip hide-xs hide-sm md-direction="bottom">
+                Edit Profile
+            </md-tooltip>
         </md-button>
-        <md-button class="md-icon-button" aria-label="Events" href="#/events">
-            <md-icon md-font-set="md">event</md-icon>
+        <md-button class="md-icon-button" aria-label="Events" href="#/logout">
+            <md-icon md-font-set="md">exit_to_app</md-icon>
+            <md-tooltip hide-xs hide-sm md-direction="bottom">
+                Logout
+            </md-tooltip>
         </md-button>
     </div>
 </md-toolbar>
