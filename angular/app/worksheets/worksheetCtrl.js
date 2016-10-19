@@ -8,7 +8,7 @@
      * # WorksheetCtrl
      * Controller of the timeManager
      */
-    angular.module('app.controllers').controller('WorksheetCtrl', function ($scope, mdMenuSrv, mdDialogSrv, mdToastSrv, WorksheetSrv, UserSrv) {
+    angular.module('app.controllers').controller('WorksheetCtrl', function ($rootScope, $scope, mdMenuSrv, mdDialogSrv, mdToastSrv, WorksheetSrv, UserSrv) {
 
         $scope.openMenu = function ($mdOpenMenu, ev)
         {
@@ -33,6 +33,24 @@
             });
         };
 
+        $scope.openDeleteUserDialog    = function (event, user)
+        {
+            var params  = {
+                'title'         : 'Are you sure you want to delete this user?',
+                'textContent'   : 'This action cannot be undone',
+                'ariaLabel'     : 'deleteUser',
+                'ok'            : 'Yes',
+                'cancel'        : 'Cancel',
+            };
+
+            mdDialogSrv.confirm(event, params, function (success) {
+                $scope.deleteUser(user);
+
+            }, function (err) {
+
+            });
+        };
+
         $scope.openEditUserDialog   = function (event)
         {
             mdDialogSrv.fromTemplate('./views/app/dialogs/edit_user.html', event, $scope);
@@ -40,6 +58,7 @@
 
         $scope.openEditWorksheetDialog  = function (event, worksheet)
         {
+            $scope.canEditWorksheet(worksheet);
             $scope.currentWorksheet     = worksheet;
             // creating a javascript date from string
             if (worksheet.date) {
@@ -94,6 +113,30 @@
                 }
 
                 mdToastSrv.show({'content' : 'Worksheet Deleted!', 'position' : 'top right', 'delay' : 3000});
+
+            }, function (err) {
+
+            });
+        };
+
+        $scope.deleteUser  = function (user)
+        {
+            if (!user.id) {
+                // no user to delete
+                return false;
+            }
+
+            UserSrv.delete({id : user.id}, function (success) {
+
+                var userIndex       = $scope.users.indexOf(user);
+                // deleting user from DOM
+                if (userIndex !== -1) {
+                    $scope.users.splice(userIndex, 1);
+                }
+
+                $scope.currentUser  = null;
+
+                mdToastSrv.show({'content' : 'User Deleted!', 'position' : 'top right', 'delay' : 3000});
 
             }, function (err) {
 
@@ -159,7 +202,7 @@
                 }
 
             }, function (err) {
-                mdToastSrv.err({'content' : 'Error Editing Worksheet!', 'position' : 'top right', 'delay' : 3000});
+                mdToastSrv.error({'content' : 'Error Editing Worksheet!', 'position' : 'top right', 'delay' : 3000});
             });
         };
 
@@ -184,15 +227,31 @@
             return true;
         };
 
+        $scope.canEditWorksheet = function (worksheet)
+        {
+            // user can edit worksheet if it's an admin or owns the worksheet
+            return ($rootScope.me.role === 'Admin' || worksheet.user_id == $rootScope.me.id);
+        };
+
+        $scope.hasAdminAccess = function ()
+        {
+            // user can edit worksheet if it's an admin or owns the worksheet
+            return ($rootScope.me.role === 'Admin' || $rootScope.me.role === 'Manager');
+        };
+
+        $scope.getUsers   = function ()
+        {
+            UserSrv.getUsers({}, function (result) {
+                $scope.users    = result.data;
+
+            }, function (err) {
+                // TODO error treatment
+            });
+        };
+
         // -----------
 
-        UserSrv.getUsers({}, function (result) {
-            $scope.users    = result.data;
-
-        }, function (err) {
-            // TODO error treatment
-        });
-
+        $scope.getUsers();
         $scope.filters  = {};
     });
 })();
