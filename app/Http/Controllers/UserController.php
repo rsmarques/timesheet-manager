@@ -78,6 +78,10 @@ class UserController extends ApiController
 
     public function createUser()
     {
+        if (!$this->validateAdminAccess()) {
+            return $this->responseWithErrors("User has not admin privileges!", 422);
+        }
+
         $validator  = $this->createUserValidator();
 
         if ($validator->fails()) {
@@ -91,6 +95,10 @@ class UserController extends ApiController
 
     public function updateUser($id)
     {
+        if (!$this->validateAdminAccess()) {
+            return $this->responseWithErrors("User has not admin privileges!", 422);
+        }
+
         $user       = User::find($id);
 
         if (!$user) {
@@ -110,6 +118,10 @@ class UserController extends ApiController
 
     public function deleteUser($id)
     {
+        if (!$this->validateAdminAccess()) {
+            return $this->responseWithErrors("User has not admin privileges!", 422);
+        }
+
         $user       = User::find($id);
 
         if (!$user) {
@@ -169,5 +181,16 @@ class UserController extends ApiController
             'working_hours' => 'integer|min:0',
             'role'          => 'in:' . implode(',', Config::get('roles')),
         ]);
+    }
+
+    public function validateAdminAccess()
+    {
+        $user   = JWTAuth::parseToken()->toUser();
+
+        if (!$user || $user->getRole() === 'Regular') {
+            return false;
+        }
+
+        return true;
     }
 }

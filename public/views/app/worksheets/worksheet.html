@@ -80,7 +80,7 @@
                         <p>{{currentUser.worksheet_count}} Worksheets</p>
                     </div>
                     <div layout="row" layout-align="end center" flex="60">
-                        <md-button class="md-icon-button" aria-label="Add" ng-click="openEditWorksheetDialog($event, {})">
+                        <md-button class="md-icon-button" aria-label="Add" ng-click="openEditWorksheetDialog($event, {})" ng-if="canEditWorksheet(worksheet)">
                             <md-icon md-font-set="md">add_box</md-icon>
                             <md-tooltip hide-xs hide-sm md-direction="bottom">
                                 Add Worksheet
@@ -133,7 +133,7 @@
             </div>
             <div ng-if="!currentUser.id" layout="column" layout-align="center center" style="color: #888; padding-top: 50px">
                 <h2>Please select an user,</h2>
-                <h2>or create a new one <a href="" ng-click="openEditWorksheetDialog($event, {})">here</a></h2>
+                <h2>or create a new one <a href="" ng-click="openEditUserDialog($event)">here</a></h2>
             </div>
         </div>
     </div>

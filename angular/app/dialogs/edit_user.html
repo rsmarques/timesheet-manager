@@ -37,6 +37,13 @@
                                 <div ng-message="required">This field is required.</div>
                             </div>
                         </md-input-container>
+                        <md-input-container class="md-block" ng-if="!currentUser.id">
+                            <label>Password</label>
+                            <input type="password" required name="password" ng-model="currentUser.password">
+                            <div ng-messages="userForm.password.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
                     </div>
                     <div layout="row">
                         <md-input-container class="md-block" flex-gt-xs>

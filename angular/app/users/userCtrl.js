@@ -26,6 +26,12 @@
             mdDialogSrv.fromTemplate('./views/app/dialogs/edit_user.html', event, $scope);
         };
 
+        $scope.openNewProfileDialog  = function (event)
+        {
+            $scope.currentUser   = {};
+            mdDialogSrv.fromTemplate('./views/app/dialogs/edit_user.html', event, $scope);
+        };
+
         $scope.getProfile();
     });
 })();
