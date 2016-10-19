@@ -111,9 +111,9 @@
             mdDialogSrv.hide();
         };
 
-        $scope.saveUser     = function (user)
+        $scope.saveUser = function (user)
         {
-            method  = user.id ? 'update' : 'create';
+            var method  = user.id ? 'update' : 'create';
 
             UserSrv[method](user, function (result) {
                 // TODO insert in DOM + toast

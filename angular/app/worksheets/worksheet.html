@@ -37,7 +37,7 @@
                         <md-menu-item>
                             <md-button ng-click="sortUsers('worksheet_count' , 0)">
                                 <md-icon md-font-set="md">arrow_drop_up</md-icon>
-                                Hours
+                                Worksheets
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
@@ -66,7 +66,7 @@
             <div ng-if="currentUser.id">
 
                 <div layout="row" class="worksheet-header" layout-align="center center" flex>
-                    <div layout="column" flex="50">
+                    <div layout="column" flex="40">
                         <div layout="row" class="edit-user-button">
                             <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
                             <md-button ng-if="1" class="md-icon-button" aria-label="Edit" ng-click="openEditUserDialog($event)">
@@ -79,8 +79,13 @@
                         <h4 hide-xs hide-sm>{{currentUser.email}}</h4>
                         <p>{{currentUser.worksheet_count}} Worksheets</p>
                     </div>
-                    <div layout="row" layout-align="end center" flex="50">
-
+                    <div layout="row" layout-align="end center" flex="60">
+                        <md-button class="md-icon-button" aria-label="Add" ng-click="openEditWorksheetDialog($event, {})">
+                            <md-icon md-font-set="md">add_box</md-icon>
+                            <md-tooltip hide-xs hide-sm md-direction="bottom">
+                                Add Worksheet
+                            </md-tooltip>
+                        </md-button>
                         <md-input-container class="date-filter">
                             <label>Filter From</label>
                             <md-datepicker ng-model="filters.start_date" md-open-on-focus></md-datepicker>
@@ -89,13 +94,6 @@
                             <label>Filter To</label>
                             <md-datepicker ng-model="filters.end_date" md-open-on-focus></md-datepicker>
                         </md-input-container>
-
-                        <md-button class="md-icon-button" aria-label="Add" ng-click="openEditWorksheetDialog($event, {})">
-                            <md-icon md-font-set="md">add</md-icon>
-                            <md-tooltip hide-xs hide-sm md-direction="bottom">
-                                Add Worksheet
-                            </md-tooltip>
-                        </md-button>
                     </div>
                 </div>
                 <md-divider></md-divider>
