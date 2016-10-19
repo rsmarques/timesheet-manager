@@ -16,7 +16,7 @@ Route::group(array('prefix' => 'api'), function () {
 
 
     Route::get('/', function () {
-        return array("welcome to the Time Manager API");
+        return array('welcome to the Time Manager API');
     });
 
     // authentication endpoints

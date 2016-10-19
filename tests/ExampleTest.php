@@ -13,7 +13,9 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $prefix = '/api/';
+
+        $this->json('GET', $prefix)
+             ->seeJson(['welcome to the Time Manager API']);
     }
 }
