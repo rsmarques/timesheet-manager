@@ -246,7 +246,7 @@
         $scope.canEditWorksheet = function (worksheet)
         {
             // user can edit worksheet if it's an admin or owns the worksheet
-            return ($rootScope.me.role === 'Admin' || worksheet.user_id == $rootScope.me.id);
+            return ($rootScope.me.role === 'Admin' || ($scope.currentUser.id == $rootScope.me.id));
         };
 
         $scope.hasAdminAccess = function ()
