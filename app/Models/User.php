@@ -47,6 +47,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->worksheets()->count();
     }
 
+    public function getRole()
+    {
+        return ucfirst($this->role);
+    }
+
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);

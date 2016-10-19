@@ -69,14 +69,14 @@
                     <div layout="column" flex="40">
                         <div layout="row" class="edit-user-button">
                             <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
-                            <md-button ng-if="1" class="md-icon-button" aria-label="Edit" ng-click="openEditUserDialog($event)">
+                            <md-button ng-if="hasAdminAccess()" class="md-icon-button" aria-label="Edit" ng-click="openEditUserDialog($event)">
                                 <md-icon md-font-set="md">mode_edit</md-icon>
                                 <md-tooltip hide-xs hide-sm md-direction="bottom">
                                     Edit User
                                 </md-tooltip>
                             </md-button>
                         </div>
-                        <h4 hide-xs hide-sm>{{currentUser.email}}</h4>
+                        <h4 hide-xs hide-sm>Working hours/day: <strong>{{currentUser.working_hours}}h</strong></h4>
                         <p>{{currentUser.worksheet_count}} Worksheets</p>
                     </div>
                     <div layout="row" layout-align="end center" flex="60">
@@ -112,7 +112,7 @@
                         </div>
                         <span flex></span>
 
-                        <div layout="row" layout-align="center center">
+                        <div layout="row" layout-align="center center" ng-if="canEditWorksheet(worksheet)">
                             <md-button class="md-icon-button" aria-label="Edit" ng-click="openEditWorksheetDialog($event, worksheet)" layout="row">
                                 <md-icon md-font-set="md">mode_edit</md-icon>
                                 <md-tooltip hide-xs hide-sm md-direction="bottom">
@@ -130,10 +130,10 @@
                     <md-divider></md-divider>
                 </div>
 
-                <div ng-if="!currentUser.id" layout="column" layout-align="center center" style="color: #888; padding-top: 50px">
-                    <h2>Please select an user,</h2>
-                    <h2>or create a new one <a href="" ng-click="openEditWorksheetDialog($event, {})">here</a></h2>
-                </div>
+            </div>
+            <div ng-if="!currentUser.id" layout="column" layout-align="center center" style="color: #888; padding-top: 50px">
+                <h2>Please select an user,</h2>
+                <h2>or create a new one <a href="" ng-click="openEditWorksheetDialog($event, {})">here</a></h2>
             </div>
         </div>
     </div>

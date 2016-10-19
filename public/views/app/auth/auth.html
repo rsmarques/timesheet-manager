@@ -44,15 +44,6 @@
                     </div>
                 </md-input-container>
 
-                <md-input-container ng-if="register" class="md-icon-float md-block">
-                    <label>Confirm Password</label>
-                    <md-icon md-font-set="md">lock_outline</md-icon>
-                    <input type="password" md-no-asterisk required name="confirm_password" ng-model="credentials.confirm_password">
-                    <div ng-messages="loginForm.confirm_password.$error">
-                        <div ng-message="pattern">Passwords don't match.</div>
-                    </div>
-                </md-input-container>
-
                 <md-button class="md-raised md-primary login-button" type="submit" aria-label="Login">{{ loginText }}</md-button>
             </form>
             <p class="error-text">{{ authError }}</p>

@@ -47,12 +47,23 @@
                                 <div ng-message="min max">This field must be between [0-24]</div>
                             </div>
                         </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Role</label>
+                            <md-select required name="role" ng-model="currentUser.role">
+                                <md-option ng-value ="role" ng-repeat="role in ['Regular', 'Manager', 'Admin']">
+                                    {{ role }}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="userForm.role.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
                     </div>
                 </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
-            <md-button ng-if="currentUser.id && hasAdminAccess()" class="md-raised md-warn" aria-label="Delete" ng-click="showDeleteUser($event, currentUser)">Delete User</md-button>
+            <md-button ng-if="currentUser.id && (hasAdminAccess() || me.id === currentUser.id)" class="md-raised md-warn" aria-label="Delete" ng-click="openDeleteUserDialog($event, currentUser)">Delete User</md-button>
             <span flex></span>
             <md-button type="submit" aria-label="Finished">Done</md-button>
         </md-dialog-actions>

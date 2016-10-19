@@ -18,7 +18,7 @@ class UserTransformer extends Fractal\TransformerAbstract
             'last_name'         => $user->last_name,
             'name'              => $user->getFullName(),
             'profile_image'     => $user->profile_image,
-            'role'              => $user->role,
+            'role'              => $user->getRole(),
             'working_hours'     => $user->working_hours,
             'worksheet_count'   => $user->getWorksheetCount(),
         ];

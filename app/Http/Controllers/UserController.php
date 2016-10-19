@@ -17,6 +17,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Input;
+use Config;
 
 class UserController extends ApiController
 {
@@ -136,7 +137,7 @@ class UserController extends ApiController
         $user->last_name        = Input::get('last_name', null);
         $user->username         = Input::get('username', $user->calcUsername());
         $user->profile_image    = Input::get('profile_image');
-        $user->role             = Input::get('role', 'regular');
+        $user->role             = Input::get('role', 'Regular');
         $user->working_hours    = Input::get('working_hours', 0);
 
         $user->save();
@@ -154,6 +155,7 @@ class UserController extends ApiController
             'first_name'    => 'required',
             'last_name'     => 'required',
             'working_hours' => 'integer|min:0',
+            'role'          => 'in:' . implode(',', Config::get('roles')),
         ]);
     }
 
@@ -165,6 +167,7 @@ class UserController extends ApiController
             'first_name'    => 'required',
             'last_name'     => 'required',
             'working_hours' => 'integer|min:0',
+            'role'          => 'in:' . implode(',', Config::get('roles')),
         ]);
     }
 }
