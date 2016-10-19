@@ -134,6 +134,12 @@
                     $scope.users.splice(userIndex, 1);
                 }
 
+                if (user.id == $scope.me.id) {
+                    // logged user was deleted, logging out
+                    window.location = "#/logout";
+                    return true;
+                }
+
                 $scope.currentUser  = null;
 
                 mdToastSrv.show({'content' : 'User Deleted!', 'position' : 'top right', 'delay' : 3000});
