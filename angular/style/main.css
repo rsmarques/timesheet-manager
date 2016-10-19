@@ -1,0 +1,11 @@
+/* Styling applied to all pages */
+
+.md-toolbar-tools {
+    background-color: #25B7D3;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.error-text {
+    color: #DD2C00;
+}

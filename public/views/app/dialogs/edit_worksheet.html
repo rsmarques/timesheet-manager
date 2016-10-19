@@ -1,0 +1,62 @@
+<md-dialog aria-label="Edit Worksheet">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit Worksheet</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelEditWorksheet()">
+                <md-icon md-font-set="md">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form name="worksheetForm" ng-submit="worksheetForm.$valid && finishEditWorksheet()">
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div>
+                    <div layout="row">
+                        <md-input-container class="md-block">
+                            <label>Date</label>
+                            <md-datepicker ng-model="currentWorksheet.dateJS" required md-open-on-focus></md-datepicker>
+                            <div ng-messages="worksheetForm.dateJS.$error" multiple="" md-auto-hide="false">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Working Hours</label>
+                            <input required type="number" name="hours" ng-model="currentWorksheet.hours" min="0" max="24"/>
+                            <div ng-messages="worksheetForm.hours.$error" multiple="" md-auto-hide="false">
+                                <div ng-message="required">This field is required.</div>
+                                <div ng-message="min max">This field must be between [0-24]</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" ng-repeat="note in currentWorksheet.notes track by $index">
+                        <md-input-container class="md-block edit-note" flex-gt-xs>
+                            <label>Note {{ $index + 1}}</label>
+                            <input required name="currentWorksheet.notes[$index]" ng-model="currentWorksheet.notes[$index]"/>
+                            <div ng-messages="userForm.currentWorksheet.notes[$index].$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-button class="md-icon-button" ng-click="deleteNote($index)">
+                            <md-icon class="delete-note-icon" md-font-set="md">remove_circle</md-icon>
+                        </md-button>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block edit-note" flex-gt-xs>
+                            <label>Add Note</label>
+                            <input name="currentWorksheet.new_note" ng-model="currentWorksheet.new_note"/>
+                        </md-input-container>
+                        <md-button class="md-icon-button" ng-click="createNote()">
+                            <md-icon md-font-set="md">add_circle</md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <!-- <md-button ng-if="currentWorksheet.id && hasAdminAccess()" class="md-raised md-warn" aria-label="Delete" ng-click="showDeleteWorksheet($event, currentWorksheet)">Delete Worksheet</md-button> -->
+            <span flex></span>
+            <md-button type="submit" aria-label="Finished">Done</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

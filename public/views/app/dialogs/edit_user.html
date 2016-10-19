@@ -1,0 +1,60 @@
+<md-dialog aria-label="Edit User">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit User</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelEditUser()">
+                <md-icon md-font-set="md">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form name="userForm" ng-submit="userForm.$valid && finishEditUser(currentUser)">
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div>
+                    <div layout="row">
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>First Name</label>
+                            <input required name="first_name" ng-model="currentUser.first_name"/>
+                            <div ng-messages="userForm.first_name.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Last Name</label>
+                            <input required name="last_name" ng-model="currentUser.last_name"/>
+                            <div ng-messages="userForm.last_name.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" flex-gt-xs >
+                            <label>Email</label>
+                            <input required name="email" ng-model="currentUser.email" ng-pattern="/^.+@.+\..+$/"/>
+                            <div ng-messages="userForm.email.$error" multiple>
+                                <div ng-message="pattern">This is not a valid email address.</div>
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Working Hours</label>
+                            <input required type="number" name="working_hours" ng-model="currentUser.working_hours" min="0" max="24"/>
+                            <div ng-messages="userForm.working_hours.$error" multiple="" md-auto-hide="false">
+                                <div ng-message="required">This field is required.</div>
+                                <div ng-message="min max">This field must be between [0-24]</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-if="currentUser.id && hasAdminAccess()" class="md-raised md-warn" aria-label="Delete" ng-click="showDeleteUser($event, currentUser)">Delete User</md-button>
+            <span flex></span>
+            <md-button type="submit" aria-label="Finished">Done</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
