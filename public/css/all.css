@@ -100,6 +100,17 @@ h5 {
   padding-bottom: 16px;
 }
 
+.edit-note {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.delete-note-icon {
+  color: #DD2C00;
+}
+
+/* -------- */
+
 .loginForm {
   width: 80%;
 }

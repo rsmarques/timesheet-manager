@@ -34,6 +34,24 @@ angular.module('app.controllers')
             })
         }
 
+        $scope.openEditUserDialog   = function (event)
+        {
+            mdDialogSrv.fromTemplate('./views/app/dialogs/edit_user.html', event, $scope);
+        }
+
+        $scope.openEditWorksheetDialog  = function (event, worksheet)
+        {
+            $scope.currentWorksheet     = worksheet;
+            // creating a javascript date from string
+            if (worksheet.date) {
+                $scope.currentWorksheet.dateJS  = new Date(worksheet.date);
+            }
+
+            mdDialogSrv.fromTemplate('./views/app/dialogs/edit_worksheet.html', event, $scope);
+        }
+
+        // ----
+
         $scope.worksheetFilter = function ()
         {
             return function (worksheet) {
@@ -76,18 +94,100 @@ angular.module('app.controllers')
                     $scope.worksheets.splice(worksheetIndex, 1);
                 }
 
-                $scope.deletedWorksheetToast();
+                mdToastSrv.show({'content' : 'Worksheet Deleted!', 'position' : 'top right', 'delay' : 3000});
 
             }, function (err) {
 
             });
         }
 
-        $scope.deletedWorksheetToast    = function ()
+        $scope.cancelEditUser   = function ()
         {
-            var params  = {'content' : 'Worksheet Deleted!', 'position' : 'top right', 'delay' : 3000};
-            mdToastSrv.show(params);
+            mdDialogSrv.cancel();
         }
+
+        $scope.finishEditUser   = function (user)
+        {
+            $scope.saveUser(user);
+            mdDialogSrv.hide();
+        }
+
+        $scope.saveUser     = function (user)
+        {
+            method  = user.id ? 'update' : 'create';
+            console.log(method);
+
+            UserSrv[method](user, function (result) {
+
+                console.log('result');
+                console.log(result);
+
+            }, function (err) {
+                console.log('err');
+                console.log(err);
+            });
+        }
+
+        $scope.cancelEditWorksheet  = function ()
+        {
+            mdDialogSrv.cancel();
+        }
+
+        $scope.finishEditWorksheet  = function (worksheet)
+        {
+            $scope.saveWorksheet(worksheet);
+            mdDialogSrv.hide();
+        }
+
+        $scope.saveWorksheet    = function (worksheet)
+        {
+            method              = worksheet.id ? 'update' : 'create';
+            // parsing date and user_id
+            worksheet.user_id   = worksheet.user_id ? worksheet.user_id : $scope.currentUser.id;
+            worksheet.date      = worksheet.dateJS ? worksheet.dateJS.toISOString().substring(0, 10) : worksheet.date;
+
+            WorksheetSrv[method](worksheet, function (result) {
+
+                var newWorksheet    = result.data;
+                // inserting worksheet in DOM
+                var index           = $scope.worksheets.map(function (w) { return w.id; }).indexOf(newWorksheet.id);
+
+                if (index === -1) {
+                    // event not on list, creating entry
+                    var data        = (JSON.parse(JSON.stringify(newWorksheet)));
+                    $scope.worksheets.unshift(data);
+                    mdToastSrv.show({'content' : 'Successfully Created Worksheet!', 'position' : 'top right', 'delay' : 3000});
+                }
+
+            }, function (err) {
+                mdToastSrv.err({'content' : 'Error Editing Worksheet!', 'position' : 'top right', 'delay' : 3000});
+            });
+        }
+
+        $scope.deleteNote   = function (index)
+        {
+            $scope.currentWorksheet.notes.splice(index, 1);
+
+            return true;
+        }
+
+        $scope.createNote   = function ()
+        {
+            console.log($scope.currentWorksheet);
+            if (!$scope.currentWorksheet.new_note) return false;
+
+            if (!$scope.currentWorksheet.notes) {
+                $scope.currentWorksheet.notes   = [];
+            }
+
+            $scope.currentWorksheet.notes.push($scope.currentWorksheet.new_note);
+            $scope.currentWorksheet.new_note    = null;
+
+            return true;
+        }
+
+
+        // -----------
 
         UserSrv.getUsers({}, function (result) {
             $scope.users    = result.data;

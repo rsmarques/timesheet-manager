@@ -3,13 +3,15 @@ angular.module('app.services')
     .factory('mdDialogSrv', function ($mdDialog) {
 
         return {
-            fromTemplate: function (template, $scope) {
+            fromTemplate: function (template, event, $scope) {
 
                 var options = {
-                    templateUrl: './views/dialogs/' + template + '/' + template + '.html'
+                    templateUrl: template,
+                    targetEvent: event,
+                    clickOutsideToClose: true
                 };
 
-                if ($scope){
+                if ($scope) {
                     options.scope = $scope.$new();
                 }
 
@@ -18,6 +20,10 @@ angular.module('app.services')
 
             hide: function () {
                 return $mdDialog.hide();
+            },
+
+            cancel: function () {
+                return $mdDialog.cancel();
             },
 
             alert: function (title, content){

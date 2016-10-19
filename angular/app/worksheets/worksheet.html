@@ -69,7 +69,7 @@
                     <div layout="column" flex="50">
                         <div layout="row" class="edit-user-button">
                             <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
-                            <md-button ng-if="1" class="md-icon-button" aria-label="Edit" ng-click="openUserDialog($event)">
+                            <md-button ng-if="1" class="md-icon-button" aria-label="Edit" ng-click="openEditUserDialog($event)">
                                 <md-icon md-font-set="md">mode_edit</md-icon>
                                 <md-tooltip hide-xs hide-sm md-direction="bottom">
                                     Edit User
@@ -90,7 +90,7 @@
                             <md-datepicker ng-model="filters.end_date" md-open-on-focus></md-datepicker>
                         </md-input-container>
 
-                        <md-button class="md-icon-button" aria-label="Add" ng-click="openWorksheetDialog($event)">
+                        <md-button class="md-icon-button" aria-label="Add" ng-click="openEditWorksheetDialog($event, {})">
                             <md-icon md-font-set="md">add</md-icon>
                             <md-tooltip hide-xs hide-sm md-direction="bottom">
                                 Add Worksheet
@@ -115,7 +115,7 @@
                         <span flex></span>
 
                         <div layout="row" layout-align="center center">
-                            <md-button class="md-icon-button" aria-label="Edit" ng-click="openWorksheetDialog($event)" layout="row">
+                            <md-button class="md-icon-button" aria-label="Edit" ng-click="openEditWorksheetDialog($event, worksheet)" layout="row">
                                 <md-icon md-font-set="md">mode_edit</md-icon>
                                 <md-tooltip hide-xs hide-sm md-direction="bottom">
                                     Edit Worksheet
@@ -134,7 +134,7 @@
 
                 <div ng-if="!currentUser.id" layout="column" layout-align="center center" style="color: #888; padding-top: 50px">
                     <h2>Please select an user,</h2>
-                    <h2>or create a new one <a href="" ng-click="openWorksheetDialog($event)">here</a></h2>
+                    <h2>or create a new one <a href="" ng-click="openEditWorksheetDialog($event, {})">here</a></h2>
                 </div>
             </div>
         </div>

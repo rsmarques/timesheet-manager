@@ -10,7 +10,7 @@
 
 
     angular.module('app.routes', ['ui.router']);
-    angular.module('app.controllers', ['ui.router', 'ngMaterial', 'ngResource']);
+    angular.module('app.controllers', ['ui.router', 'ngMaterial', 'ngResource', 'ngMessages']);
     angular.module('app.services', []);
     angular.module('app.config', []);
 
