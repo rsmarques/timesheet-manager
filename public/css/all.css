@@ -1,1 +1,136 @@
-.login-area p,.login-form{padding-top:10px}.md-toolbar-tools{background-color:#25B7D3;padding-left:25px;padding-right:25px}.error-text{color:#DD2C00}.login-area{width:400px}.login-area md-input-container{margin-top:5px;margin-bottom:5px}.login-form{width:80%;padding-bottom:10px}.login-button{margin:10px auto auto;display:block;background-color:#25B7D3!important}.worksheet-header h1,.worksheet-row h4,h4,h5,p{margin-bottom:5px;margin-top:5px}.login-image{width:100px}.logo-image{height:70%;padding-right:20px}.worksheet-header{padding:20px 15px}.worksheet-row-under{color:#E02020}.worksheet-row-over{color:#009607}.worksheet-header h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#000!important}.worksheet-header h1,h4,p{color:#888}.worksheet-row div{padding-left:20px;padding-top:5px;padding-bottom:5px}.worksheet-row h4{color:#111}.worksheet-row h5{font-size:14px}.worksheet-row p{font-size:13px;margin:0;text-align:justify}.search-bar{margin-left:12px;margin-right:12px;margin-bottom:2px;background-color:#f3f3f3;padding-right:12px!important;height:40px;width:100%}.sort-users-button{margin-top:18px!important;right:10px}.date-filter{margin-top:25px;margin-bottom:0;margin-right:2px}.date-filter label{font-size:12px}.edit-user-button>.md-button{padding-top:0;margin-left:0;padding-bottom:16px}.edit-note{margin-top:0;margin-bottom:0}.delete-note-icon{color:#DD2C00}
+/* Styling applied to all pages */
+
+.md-toolbar-tools {
+  background-color: #25B7D3;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.error-text {
+  color: #DD2C00;
+}
+.login-area {
+  width: 400px;
+}
+
+.login-area p {
+  padding-top: 10px;
+}
+
+.login-area md-input-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.login-form {
+  width: 80%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.login-button {
+  margin: auto;
+  margin-top: 10px;
+  display: block;
+  background-color: #25B7D3 !important;
+}
+
+.login-image {
+  width: 100px;
+}
+.logo-image {
+  height: 70%;
+  padding-right: 20px;
+}
+.worksheet-header {
+  padding: 20px 15px;
+}
+
+.worksheet-row-under {
+  color: #E02020;
+}
+
+.worksheet-row-over {
+  color: #009607;
+}
+
+.worksheet-header h1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000 !important;
+}
+
+.worksheet-header h1,
+p,
+h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #888;
+}
+
+.worksheet-row div {
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.worksheet-row h4,
+h5 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.worksheet-row h4 {
+  color: #111;
+}
+
+.worksheet-row h5 {
+  font-size: 14px;
+}
+
+.worksheet-row p {
+  font-size: 13px;
+  margin: 0px;
+  text-align: justify;
+}
+
+.search-bar {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-bottom: 2px;
+  background-color: #f3f3f3;
+  padding-right: 12px !important;
+  height: 40px;
+  width: 100%;
+}
+
+.sort-users-button {
+  margin-top: 18px !important;
+  right: 10px;
+}
+
+.date-filter {
+  margin-top: 25px;
+  margin-bottom: 0px;
+  margin-right: 2px;
+}
+
+.date-filter label {
+  font-size: 12px;
+}
+
+.edit-user-button > .md-button {
+  padding-top: 0px;
+  margin-left: 0px;
+  padding-bottom: 16px;
+}
+
+.edit-note {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.delete-note-icon {
+  color: #DD2C00;
+}
