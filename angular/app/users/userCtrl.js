@@ -8,8 +8,22 @@
      * # UserCtrl
      * Controller of the timeManager
      */
-    angular.module('app.controllers').controller('UserCtrl', function ($scope, UserSrv) {
+    angular.module('app.controllers').controller('UserCtrl', function ($scope, mdDialogSrv, UserSrv) {
 
-        console.log('UserCtrl');
+        $scope.getProfile   = function ()
+        {
+            UserSrv.me({}, function (result) {
+                $scope.currentUser   = result.data;
+            }, function (err) {
+
+            });
+        };
+
+        $scope.openEditProfileDialog  = function (event)
+        {
+            mdDialogSrv.fromTemplate('./views/app/dialogs/edit_user.html', event, $scope);
+        };
+
+        $scope.getProfile();
     });
 })();
