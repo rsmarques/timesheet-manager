@@ -165,7 +165,17 @@
             var method  = user.id ? 'update' : 'create';
 
             UserSrv[method](user, function (result) {
-                // TODO insert in DOM + toast
+
+                var newUser     = result.data;
+                // inserting user in DOM
+                var index       = $scope.users.map(function (u) { return u.id; }).indexOf(newUser.id);
+
+                if (index === -1) {
+                    // user not on list, creating entry
+                    var data    = (JSON.parse(JSON.stringify(newUser)));
+                    $scope.users.unshift(data);
+                    mdToastSrv.show({'content' : 'Successfully Created User!', 'position' : 'top right', 'delay' : 3000});
+                }
 
             }, function (err) {
                 // TODO toast
@@ -258,6 +268,7 @@
         // -----------
 
         $scope.getUsers();
-        $scope.filters  = {};
+        $scope.filters      = {};
+        $scope.currentUser  = {};
     });
 })();
