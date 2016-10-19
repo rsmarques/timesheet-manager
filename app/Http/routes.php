@@ -28,6 +28,7 @@ Route::group(array('prefix' => 'api'), function () {
 
         // user REST endpoints
         Route::get('/me', 'UserController@me');
+        Route::get('users', 'UserController@getAllUsers'); // get all users
         Route::post('users', 'UserController@createUser'); // create user
         Route::get('users/{id}', 'UserController@getUser'); // get user
         Route::put('users/{id}', 'UserController@updateUser'); // update user

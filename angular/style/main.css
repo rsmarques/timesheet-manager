@@ -6,10 +6,6 @@
     padding-right: 25px;
 }
 
-.error {
-    color: #c60008;
-}
-
-.success {
-    color: #00c608;
+.error-text {
+    color: #DD2C00;
 }

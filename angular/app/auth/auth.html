@@ -1,1 +1,63 @@
-<h1>Login</h1>
+<div ng-cloak style="margin:auto">
+    <div layout="row" layout-align="center center">
+        <div class="login-area" layout="column" layout-align="center center">
+
+            <img class="login-image" ng-src="/images/logo/logo.svg" class="md-card-image" alt="Time Manager">
+            <h3>Login to Time Manager</h3>
+            <form name="loginForm" class="login-form" ng-submit="loginForm.$valid && performLogin()">
+
+                <div layout="row" ng-if="register">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>First Name</label>
+                        <md-icon md-font-set="md">person</md-icon>
+                        <input md-no-asterisk required name="first_name" ng-model="credentials.first_name">
+                        <div ng-messages="loginForm.first_name.$error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Last Name</label>
+                        <input md-no-asterisk required name="last_name" ng-model="credentials.last_name">
+                        <div ng-messages="loginForm.last_name.$error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Email</label>
+                    <md-icon md-font-set="md">email</md-icon>
+                    <input md-no-asterisk required name="email" ng-model="credentials.email" ng-pattern="/^.+@.+\..+$/"/>
+                    <div ng-messages="loginForm.email.$error">
+                        <div ng-message="pattern">This is not a valid email address.</div>
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Password</label>
+                    <md-icon md-font-set="md">lock</md-icon>
+                    <input type="password" md-no-asterisk required name="password" ng-model="credentials.password">
+                    <div ng-messages="loginForm.password.$error">
+                        <div ng-message="pattern">Password has to be at least 6 characters long.</div>
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container ng-if="register" class="md-icon-float md-block">
+                    <label>Confirm Password</label>
+                    <md-icon md-font-set="md">lock_outline</md-icon>
+                    <input type="password" md-no-asterisk required name="confirm_password" ng-model="credentials.confirm_password">
+                    <div ng-messages="loginForm.confirm_password.$error">
+                        <div ng-message="pattern">Passwords don't match.</div>
+                    </div>
+                </md-input-container>
+
+                <md-button class="md-raised md-primary login-button" type="submit" aria-label="Login">{{ loginText }}</md-button>
+            </form>
+            <p class="error-text">{{ authError }}</p>
+            <p ng-show="!register">No account yet? Create one <a href="#/signup">here</a></p>
+        </div>
+
+    </div>
+</div>

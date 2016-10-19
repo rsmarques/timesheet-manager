@@ -9,11 +9,13 @@
                 url: '/signup',
                 templateUrl: './views/app/auth/auth.html',
                 controller: 'AuthCtrl',
+                register: 1,
             })
             .state('signin', {
                 url: '/signin',
                 templateUrl: './views/app/auth/auth.html',
                 controller: 'AuthCtrl',
+                register: 0,
             })
             .state('users', {
                 url: '/users',
@@ -27,5 +29,23 @@
             });
 
         $urlRouterProvider.otherwise('/');
+
+        $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+            return {
+                'request': function (config) {
+                    config.headers = config.headers || {};
+                    if ($localStorage.token) {
+                        config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                    }
+                    return config;
+                },
+                'responseError': function (response) {
+                    if (response.status === 400 || response.status === 401 || response.status === 403) {
+                        $location.path('/signin');
+                    }
+                    return $q.reject(response);
+                }
+            };
+        }]);
     });
 })();

@@ -6,19 +6,44 @@
   padding-right: 25px;
 }
 
-.error {
-  color: #c60008;
+.error-text {
+  color: #DD2C00;
+}
+.login-area {
+  width: 400px;
 }
 
-.success {
-  color: #00c608;
+.login-area p {
+  padding-top: 10px;
+}
+
+.login-area md-input-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.login-form {
+  width: 80%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.login-button {
+  margin: auto;
+  margin-top: 10px;
+  display: block;
+  background-color: #25B7D3 !important;
+}
+
+.login-image {
+  width: 100px;
 }
 .logo-image {
   height: 70%;
   padding-right: 20px;
 }
 .worksheet-header {
-  padding: 15px 0px 15px 20px;
+  padding: 20px 15px;
 }
 
 .worksheet-row-under {
@@ -88,6 +113,7 @@ h5 {
 .date-filter {
   margin-top: 25px;
   margin-bottom: 0px;
+  margin-right: 2px;
 }
 
 .date-filter label {
@@ -107,24 +133,4 @@ h5 {
 
 .delete-note-icon {
   color: #DD2C00;
-}
-
-/* -------- */
-
-.loginForm {
-  width: 80%;
-}
-
-.loginButton {
-  margin: auto;
-  display: block;
-  background-color: #009FE3 !important;
-}
-
-.loginArea {
-  width: 400px;
-}
-
-.loginImage {
-  width: 100px;
 }

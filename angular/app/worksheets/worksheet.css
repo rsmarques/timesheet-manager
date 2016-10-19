@@ -87,24 +87,3 @@
 .delete-note-icon {
     color: #DD2C00;
 }
-
-
-/* -------- */
-
-.loginForm {
-    width: 80%
-}
-
-.loginButton {
-    margin: auto;
-    display: block;
-    background-color: #009FE3 !important;
-}
-
-.loginArea {
-    width: 400px;
-}
-
-.loginImage {
-    width: 100px;
-}
