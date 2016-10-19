@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use Log;
+use JWTAuth;
 
 use User;
 use Worksheet;
@@ -66,6 +67,10 @@ class WorksheetController extends ApiController
             return $this->responseWithErrors("User [$userId] not found!", 500);
         }
 
+        if (!$this->validateAdminAccess($userId)) {
+            return $this->responseWithErrors("User has not admin privileges!", 422);
+        }
+
         Log::info("WorksheetController :: Storing worksheet from user [$userId]");
 
         $worksheet          = $id ? Worksheet::firstOrNew(array('id' => $id)) : new Worksheet;
@@ -123,10 +128,25 @@ class WorksheetController extends ApiController
             return $this->responseWithErrors("Worksheet [$worksheetId] not found!", 500);
         }
 
+        if (!$this->validateAdminAccess($worksheet->user_id)) {
+            return $this->responseWithErrors("User has not admin privileges!", 422);
+        }
+
         // deleting all worksheet notes first
         Note::where('worksheet_id', $worksheet->id)->delete();
         Worksheet::where('id', $worksheet->id)->delete();
 
         return $this->responseWithNoContent();
+    }
+
+    public function validateAdminAccess($userId)
+    {
+        $user   = JWTAuth::parseToken()->toUser();
+
+        if (!$user || ($user->getRole() !== 'Admin' && $user->id != $userId)) {
+            return false;
+        }
+
+        return true;
     }
 }
