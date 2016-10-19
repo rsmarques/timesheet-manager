@@ -22,6 +22,12 @@
             }
         };
 
+        $scope.performLogout = function () {
+            AuthSrv.logout(function () {
+                window.location = "#/signin";
+            });
+        };
+
         $scope.signin = function () {
             var formData        = $scope.credentials;
             $scope.authError    = null;
@@ -44,21 +50,21 @@
             });
         };
 
-        $scope.logout = function () {
-            AuthSrv.logout(function () {
-                window.location = "/";
-            });
-        };
+        // Redefining page status for login/logout/register
+        $scope.$on('$stateChangeSuccess', function () {
+            $scope.logout       = $state.current.logout;
+            if ($scope.logout) {
+                $scope.performLogout();
+            }
 
-         $scope.$on('$stateChangeSuccess', function () {
             $scope.register     = $state.current.register;
             $scope.loginText    = $scope.register ? 'Register' : 'Login';
             $scope.authError    = null;
-         });
+        });
 
-        $scope.token         = $localStorage.token;
-        $scope.tokenClaims   = AuthSrv.getTokenClaims();
-        $scope.credentials   = {};
+        $scope.token            = $localStorage.token;
+        $scope.tokenClaims      = AuthSrv.getTokenClaims();
+        $scope.credentials      = {};
 
     });
 })();

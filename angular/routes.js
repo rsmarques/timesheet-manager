@@ -17,6 +17,12 @@
                 controller: 'AuthCtrl',
                 register: 0,
             })
+            .state('logout', {
+                url: '/logout',
+                templateUrl: './views/app/auth/auth.html',
+                controller: 'AuthCtrl',
+                logout: 1,
+            })
             .state('users', {
                 url: '/users',
                 templateUrl: './views/app/users/user.html',
