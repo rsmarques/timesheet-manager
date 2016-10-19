@@ -8,7 +8,7 @@
             </md-button>
         </div>
     </md-toolbar>
-    <form name="worksheetForm" ng-submit="worksheetForm.$valid && finishEditWorksheet(currentWorksheet)">
+    <form name="worksheetForm" ng-submit="worksheetForm.$valid && finishEditWorksheet()">
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div>
@@ -43,7 +43,7 @@
                     </div>
                     <div layout="row">
                         <md-input-container class="md-block edit-note" flex-gt-xs>
-                            <label>New Note</label>
+                            <label>Add Note</label>
                             <input name="currentWorksheet.new_note" ng-model="currentWorksheet.new_note"/>
                         </md-input-container>
                         <md-button class="md-icon-button" ng-click="createNote()">

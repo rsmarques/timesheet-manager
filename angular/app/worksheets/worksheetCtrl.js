@@ -1,15 +1,14 @@
-'use strict';
+(function(){
+    "use strict";
 
-/**
- * @ngdoc function
- * @name timeManager.controller:WorksheetCtrl
- * @description
- * # WorksheetCtrl
- * Controller of the timeManager
- */
-angular.module('app.controllers')
-
-    .controller('WorksheetCtrl', function ($scope, mdMenuSrv, mdDialogSrv, mdToastSrv, WorksheetSrv, UserSrv) {
+    /**
+     * @ngdoc function
+     * @name timeManager.controller:WorksheetCtrl
+     * @description
+     * # WorksheetCtrl
+     * Controller of the timeManager
+     */
+    angular.module('app.controllers').controller('WorksheetCtrl', function ($scope, mdMenuSrv, mdDialogSrv, mdToastSrv, WorksheetSrv, UserSrv) {
 
         $scope.openMenu = function ($mdOpenMenu, ev)
         {
@@ -31,13 +30,13 @@ angular.module('app.controllers')
 
             }, function (err) {
 
-            })
-        }
+            });
+        };
 
         $scope.openEditUserDialog   = function (event)
         {
             mdDialogSrv.fromTemplate('./views/app/dialogs/edit_user.html', event, $scope);
-        }
+        };
 
         $scope.openEditWorksheetDialog  = function (event, worksheet)
         {
@@ -48,15 +47,15 @@ angular.module('app.controllers')
             }
 
             mdDialogSrv.fromTemplate('./views/app/dialogs/edit_worksheet.html', event, $scope);
-        }
+        };
 
         // ----
 
         $scope.worksheetFilter = function ()
         {
             return function (worksheet) {
-                return (!$scope.filters.start_date || new Date(worksheet.date) >= $scope.filters.start_date)
-                    && (!$scope.filters.end_date || new Date(worksheet.date) <= $scope.filters.end_date);
+                return (!$scope.filters.start_date || new Date(worksheet.date) >= $scope.filters.start_date) &&
+                    (!$scope.filters.end_date || new Date(worksheet.date) <= $scope.filters.end_date);
             };
         };
 
@@ -71,13 +70,13 @@ angular.module('app.controllers')
             }, function (err) {
 
             });
-        }
+        };
 
         $scope.sortUsers    = function (sort, reverse)
         {
             $scope.userSort         = sort;
             $scope.userSortReverse  = reverse;
-        }
+        };
 
         $scope.deleteWorksheet  = function (worksheet)
         {
@@ -99,62 +98,62 @@ angular.module('app.controllers')
             }, function (err) {
 
             });
-        }
+        };
 
         $scope.cancelEditUser   = function ()
         {
             mdDialogSrv.cancel();
-        }
+        };
 
         $scope.finishEditUser   = function (user)
         {
             $scope.saveUser(user);
             mdDialogSrv.hide();
-        }
+        };
 
         $scope.saveUser     = function (user)
         {
             method  = user.id ? 'update' : 'create';
-            console.log(method);
 
             UserSrv[method](user, function (result) {
-
-                console.log('result');
-                console.log(result);
+                // TODO insert in DOM + toast
 
             }, function (err) {
-                console.log('err');
-                console.log(err);
+                // TODO toast
             });
-        }
+        };
 
         $scope.cancelEditWorksheet  = function ()
         {
             mdDialogSrv.cancel();
-        }
+        };
 
-        $scope.finishEditWorksheet  = function (worksheet)
+        $scope.finishEditWorksheet  = function ()
         {
-            $scope.saveWorksheet(worksheet);
+            $scope.saveWorksheet();
             mdDialogSrv.hide();
-        }
+        };
 
-        $scope.saveWorksheet    = function (worksheet)
+        $scope.saveWorksheet    = function ()
         {
-            method              = worksheet.id ? 'update' : 'create';
+            var method                      = $scope.currentWorksheet.id ? 'update' : 'create';
             // parsing date and user_id
-            worksheet.user_id   = worksheet.user_id ? worksheet.user_id : $scope.currentUser.id;
-            worksheet.date      = worksheet.dateJS ? worksheet.dateJS.toISOString().substring(0, 10) : worksheet.date;
+            $scope.currentWorksheet.user_id = $scope.currentWorksheet.user_id ? $scope.currentWorksheet.user_id : $scope.currentUser.id;
+            $scope.currentWorksheet.date    = $scope.currentWorksheet.dateJS ? $scope.currentWorksheet.dateJS.toISOString().substring(0, 10) : $scope.currentWorksheet.date;
 
-            WorksheetSrv[method](worksheet, function (result) {
+            if ($scope.currentWorksheet.new_note) {
+                $scope.createNote();
+            }
 
-                var newWorksheet    = result.data;
+            WorksheetSrv[method]($scope.currentWorksheet, function (result) {
+
+                var worksheet   = result.data;
                 // inserting worksheet in DOM
-                var index           = $scope.worksheets.map(function (w) { return w.id; }).indexOf(newWorksheet.id);
+                var index       = $scope.worksheets.map(function (w) { return w.id; }).indexOf(worksheet.id);
 
                 if (index === -1) {
-                    // event not on list, creating entry
-                    var data        = (JSON.parse(JSON.stringify(newWorksheet)));
+                    // worksheet not on list, creating entry
+                    var data    = (JSON.parse(JSON.stringify(worksheet)));
                     $scope.worksheets.unshift(data);
                     mdToastSrv.show({'content' : 'Successfully Created Worksheet!', 'position' : 'top right', 'delay' : 3000});
                 }
@@ -162,18 +161,17 @@ angular.module('app.controllers')
             }, function (err) {
                 mdToastSrv.err({'content' : 'Error Editing Worksheet!', 'position' : 'top right', 'delay' : 3000});
             });
-        }
+        };
 
         $scope.deleteNote   = function (index)
         {
             $scope.currentWorksheet.notes.splice(index, 1);
 
             return true;
-        }
+        };
 
         $scope.createNote   = function ()
         {
-            console.log($scope.currentWorksheet);
             if (!$scope.currentWorksheet.new_note) return false;
 
             if (!$scope.currentWorksheet.notes) {
@@ -184,8 +182,7 @@ angular.module('app.controllers')
             $scope.currentWorksheet.new_note    = null;
 
             return true;
-        }
-
+        };
 
         // -----------
 
@@ -198,3 +195,4 @@ angular.module('app.controllers')
 
         $scope.filters  = {};
     });
+})();
