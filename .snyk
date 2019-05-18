@@ -1,0 +1,51 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.3
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-AXIOS-174505:
+    - laravel-elixir > browser-sync > localtunnel > axios:
+        patched: '2019-05-18T01:32:37.179Z'
+  'npm:debug:20170905':
+    - laravel-elixir-livereload > gulp-livereload > mini-lr > body-parser > debug:
+        patched: '2019-05-18T01:32:37.179Z'
+  'npm:hoek:20180212':
+    - laravel-elixir > gulp-less > less > request > hawk > hoek:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-less > less > request > hawk > boom > hoek:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-less > less > request > hawk > sntp > hoek:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-less > less > request > hawk > cryptiles > boom > hoek:
+        patched: '2019-05-18T01:32:37.179Z'
+  'npm:lodash:20180130':
+    - laravel-elixir > gulp-phpspec > lodash:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > babelify > babel-core > babel-plugin-proto-to-assign > lodash:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-babel > babel-core > babel-plugin-proto-to-assign > lodash:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > vueify > babel > babel-core > babel-plugin-proto-to-assign > lodash:
+        patched: '2019-05-18T01:32:37.179Z'
+  'npm:minimatch:20160620':
+    - laravel-elixir > gulp-if > gulp-match > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > browserify > glob > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir-livereload > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir-livereload > gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-phpunit > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir-livereload > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir-livereload > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-phpunit > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+    - laravel-elixir > gulp-phpunit > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2019-05-18T01:32:37.179Z'
+  'npm:ms:20170412':
+    - laravel-elixir-livereload > gulp-livereload > mini-lr > body-parser > debug > ms:
+        patched: '2019-05-18T01:32:37.179Z'
